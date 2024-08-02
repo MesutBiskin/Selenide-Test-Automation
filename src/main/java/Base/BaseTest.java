@@ -7,9 +7,9 @@ import org.testng.annotations.BeforeMethod;
 public class BaseTest {
     @BeforeMethod
     public void setUp(){
-        String browserName = System.getProperty("browser");
+        String browserName = System.getProperty("browserName");
         System.out.println(browserName);
-        Configuration.browser = "chrome";
+        Configuration.browser = browserName;
         Selenide.open("https://parabank.parasoft.com/");
     }
 }
