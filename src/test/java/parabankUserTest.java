@@ -27,7 +27,7 @@ public class parabankUserTest extends BaseTest {
 
     @Test(description = "Required Controller")
     public void Test003() {
-        loginPage.fillUserName("").fillUserPassword("").clickButton();
+        loginPage.clickButton();
         loginPage.errorMessageController("Please enter a username and password.");
     }
 }
