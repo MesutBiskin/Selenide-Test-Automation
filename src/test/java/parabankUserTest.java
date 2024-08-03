@@ -1,59 +1,33 @@
-import Base.BaseTest;
-import com.codeborne.selenide.Condition;
-import com.codeborne.selenide.Configuration;
-import com.codeborne.selenide.Selenide;
-import com.codeborne.selenide.conditions.Visible;
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
-
-import java.beans.Visibility;
+import pages.HomePage;
+import pages.LoginPage;
 
 import static com.codeborne.selenide.Selenide.$;
 
 public class parabankUserTest extends BaseTest {
 
-    @Test(description = "login")
+    LoginPage loginPage = new LoginPage();
+    HomePage homePage = new HomePage();
+
+    @Test(description = "login succesfull")
     public void Test001() {
-
-        $(By.name("username")).setValue("mbiskin");
-        $(By.name("password")).setValue(("Kgm202608"));
-        $(By.cssSelector("[value='Log In']")).click();
-
-        String errorMessage = $(By.className("error")).getText();
-        System.out.println(errorMessage);
-
-        //$(By.className("error")).shouldHave(Condition.text("The username and password could not be verified."));
-       // $(By.className("error")).shouldBe(Condition.visible);
-
+        String username = "keremb";
+        loginPage.fillUserName(username).fillUserPassword("123456").clickButton();
+        homePage.succesfullLoginController("Accounts Overview");
     }
 
-    @Test(description = "Test002")
+    @Test(description = "UnSuccessfull")
     public void Test002() {
-
-        $(By.name("username")).setValue("mbiskin");
-        $(By.name("password")).setValue(("Kgm202608"));
-        $(By.cssSelector("[value='Log In']")).click();
-
-        String errorMessage = $(By.className("error")).getText();
-        System.out.println(errorMessage);
-
-        //$(By.className("error")).shouldHave(Condition.text("The username and password could not be verified."));
-        // $(By.className("error")).shouldBe(Condition.visible);
-
+        loginPage.fillUserName("MesutBiskin").fillUserPassword("Kgm20260834").clickButton();
+        System.out.println(loginPage.getErrorMessage());
+        loginPage.errorMessageController("The username and password could not be verified.");
     }
 
-    @Test(description = "unsuccessfull")
+    @Test(description = "Required Controller")
     public void Test003() {
-
-        $(By.name("username")).setValue("mbiskin");
-        $(By.name("password")).setValue(("Kgm202608"));
-        $(By.cssSelector("[value='Log In']")).click();
-
-        String errorMessage = $(By.className("error")).getText();
-        System.out.println(errorMessage);
-
-        //$(By.className("error")).shouldHave(Condition.text("The username and password could not be verified."));
-        // $(By.className("error")).shouldBe(Condition.visible);
-
+        loginPage.fillUserName("").fillUserPassword("").clickButton();
+        loginPage.errorMessageController("Please enter a username and password.");
     }
 }
