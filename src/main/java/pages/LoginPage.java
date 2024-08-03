@@ -1,16 +1,18 @@
 package pages;
 
+import base.BaseLibrary;
 import com.codeborne.selenide.Condition;
 import io.qameta.allure.Step;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
 
-public class LoginPage {
+public class LoginPage extends BaseLibrary {
 
     @Step("User name field fill")
     public LoginPage fillUserName(String text) {
         $(By.name("username")).setValue(text);
+        screenshot();
         return this;
     }
 
